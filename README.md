@@ -1,0 +1,1 @@
+This one can also work with a kafka container
