@@ -4,7 +4,7 @@ from json import dumps
 import time
 
 KAFKA_TOPIC_NAME_CONS = "orderstopicdemo"
-KAFKA_BOOTSTRAP_SERVERS_CONS = "localhost:29092"
+KAFKA_BOOTSTRAP_SERVERS_CONS = "localhost:9092"
 # print("kafka started")
 kafka_producer = KafkaProducer(bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS_CONS,
                                value_serializer=lambda x: dumps(x).encode('utf-8'))
@@ -23,4 +23,4 @@ for order in orders_list:
     message = order
     print("Message to be sent:", message)
     kafka_producer.send(KAFKA_TOPIC_NAME_CONS, message)
-    time.sleep(0.1)
+    time.sleep(3)

@@ -1,7 +1,7 @@
 from kafka import KafkaConsumer
 KAFKA_CONSUMER_GROUP_NAME_CONS = "test-consumer-group"
 KAFKA_TOPIC_NAME_CONS = "orderstopicdemo"
-KAFKA_BOOTSTRAP_SERVERS_CONS = "192.168.1.222:9092"
+KAFKA_BOOTSTRAP_SERVERS_CONS = "localhost:9092"
 
 if __name__ == "__main__":
     print("Kafka Consumer Application Started ... ")
