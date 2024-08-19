@@ -21,14 +21,14 @@ history_data = stock.history(period="1mo", interval="1d")
 history_data_json_string = history_data.to_json(orient="table")
 history_data_json_dict = json.loads(history_data_json_string)
 stock_data_section_json_dict=history_data_json_dict["data"]
-
+# print(stock_data_section_json_dict)
 
 ## Set Kafka
 conf = {"bootstrap.servers": "localhost:9092",
         "client.id": socket.gethostname()
         }
 producer = Producer(conf)
-topic = "stock_price"
+topic = "stock_daily"
 
 
 
@@ -38,6 +38,7 @@ client = SchemaRegistryClient(schema_registry_conf)
 
 ## Be careful! json element should be quoted with DOUBLE QUOTES!!!
 ## Space is not allowedin Key Name. "Stock Splits" should be set to "StockSplits"
+## For the day level record, Date is the time field name
 stock_data_schema = """
 {
     "type": "record",
@@ -63,6 +64,9 @@ for message in stock_data_section_json_dict:
     print(message)
     producer.produce(
         topic=topic,
+        # ## Option 1: return plain message in dict format which can be consumed by consumer with plain_consumer_conf in stock_daily_confluent_producer.py
+        # value=str(message),
+        ## Option 2: return serialized message can be consumed by consumer with deserializing_consumer_conf in stock_daily_confluent_producer.py
         value=avro_serializer(message, SerializationContext(topic, MessageField.VALUE)),
     )
     producer.flush()  # Ensure the message is sent immediately
