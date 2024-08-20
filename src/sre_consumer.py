@@ -1,14 +1,17 @@
-## To register schema to confluence control center, confluent_kafka.schema_registry must be used!!!
-from confluent_kafka import Consumer
 from confluent_kafka import DeserializingConsumer
 from confluent_kafka.schema_registry import SchemaRegistryClient
 from confluent_kafka.schema_registry.avro import AvroDeserializer
-import yfinance as yf
+from sre_function import get_schema_from_schema_registry
 
-## Set schema registry
-schema_registry_conf = {"url": "http://localhost:8091"}
-schema_registry_client  = SchemaRegistryClient(schema_registry_conf)
-avro_deserializer = AvroDeserializer(schema_registry_client)
+
+schema_registry_url = "http://localhost:8091"
+# schema_registry_subject = "user_schema_BACKWARD"
+schema_registry_subject = "user_schema_FORWARD"
+schema_version_number = 2
+schema_registry_client, schema = get_schema_from_schema_registry(
+    schema_registry_url, schema_registry_subject, schema_version_number
+)
+avro_deserializer = AvroDeserializer(schema_registry_client, schema.schema_str)
 
 ## Confluent deserializing consumer settings
 deserializing_consumer_conf = {
@@ -19,16 +22,8 @@ deserializing_consumer_conf = {
 }
 consumer = DeserializingConsumer(deserializing_consumer_conf)
 
-## Confluent plain consumer settings
-# plain_consumer_conf = {"bootstrap.servers": "localhost:9092",
-#         "group.id": "daily-group",
-#         "auto.offset.reset": "earliest",
-#         "enable.auto.commit": "false",
-#         "auto.offset.reset": "earliest"}
-# consumer = Consumer(plain_consumer_conf)
 
-
-topic="stock_daily"
+topic = "topic_" + schema_registry_subject
 consumer.subscribe([topic])
 
 ## Read messages
