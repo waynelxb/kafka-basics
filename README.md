@@ -40,4 +40,4 @@ Test:
 
 For BACKWARD, always try to apply the updated schema on consumer side first.
 For FORWARD, always try to apply the updated schema on producer side first.
-
+All in all the key thing is to set default value properly for the schema evolution.
