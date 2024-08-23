@@ -1,23 +1,23 @@
 import sys
 
 # setting parent path
-sys.path.append("./src")
+sys.path.append("./src/schema_registry")
 from confluent_kafka.schema_registry import SchemaRegistryClient
-from sre_function import register_schema
-from sre_function import delete_schema_registry_subject
-from sre_function import get_schema_from_schema_registry
+from stk_sr_functions import register_schema
+from stk_sr_functions import delete_schema_registry_subject
+from stk_sr_functions import get_schema_from_schema_registry
 
 schema_registry_url = "http://localhost:8091"
 schema_registry_client = SchemaRegistryClient({"url": schema_registry_url})
 
 
 compatibility_level = "BACKWARD"  # Choose from BACKWARD, FORWARD, FULL, NONE
-schema_registry_subject = "stk_company_schema"
+schema_registry_subject = "stk_stock_min_data_schema"
 
 delete_schema_registry_subject(schema_registry_client, schema_registry_subject)
 
 
-with open(f"src\stk_ksqldb\stk_avro_schema\{schema_registry_subject}.avsc", "r") as f:
+with open(f"src\ksqldb_stk\stk_avro_schema\{schema_registry_subject}.avsc", "r") as f:
     schema_string = f.read()
 
 schema_id = register_schema(

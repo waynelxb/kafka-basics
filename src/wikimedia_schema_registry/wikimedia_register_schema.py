@@ -6,8 +6,7 @@ from confluent_kafka.schema_registry import Schema
 from wikimedia_stringified_schema import SCHEMA_STR
 
 schema_registry_url = 'http://localhost:8091'
-kafka_topic = 'test-blog'
-# kafka_topic = 'stock-test'
+kafka_topic = 'wikimedia'
 schema_registry_subject = f"{kafka_topic}-value"
 
 def get_schema_from_schema_registry(schema_registry_url, schema_registry_subject):

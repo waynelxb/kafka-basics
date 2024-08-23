@@ -1,0 +1,2 @@
+https://marcosschroh.github.io/python-schema-registry-client/client/
+The schema registry client provided by marcosschroh might not compatible with conflunt! We cannnot find the registered schema on confluent UI. 

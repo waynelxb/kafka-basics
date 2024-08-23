@@ -3,9 +3,9 @@ import sys
 # setting parent path
 sys.path.append("./src")
 
-from sre_function import register_schema
-from sre_function import delete_schema_registry_subject
-from sre_function import get_schema_from_schema_registry
+from ksqldb_stk.stk_sr_functions import register_schema
+from ksqldb_stk.stk_sr_functions import delete_schema_registry_subject
+from ksqldb_stk.stk_sr_functions import get_schema_from_schema_registry
 
 from confluent_kafka import Producer
 from confluent_kafka.schema_registry import SchemaRegistryClient
@@ -16,28 +16,29 @@ from confluent_kafka.serialization import (
 )
 from confluent_kafka.serialization import StringSerializer
 
-
 import random
 import socket
 import yfinance as yf
 import json
 import time
 
-tickers=["AAPL","TSLA"]
-# tickers=["AAPL","MSFT","AMZN","JPM","WMT","UNH","PG","JNJ","HD","KO","MRK","CVX","CRM","MCD","CSCO","IBM","AMGN",
-# "AXP","VZ","CAT","GS","DIS","HON","NKE","BA","INTC","MMM","TRV",]
+tickers = ["AAPL", "TSLA", "MSFT"]
 
 # print(random.choice(tickers))
-all_ticker_history_data_list=[]
+all_ticker_history_data_list = []
 ## Get stock data
-for ticker in tickers: 
+for ticker in tickers:
     stock = yf.Ticker(ticker)
     history_record = stock.history(period="1d", interval="1m")
     history_record_json_string = history_record.to_json(orient="table")
     history_record_json_dict = json.loads(history_record_json_string)
     history_data_json_list = history_record_json_dict["data"]
-    ticker_history_data_json_list=[{"ticker": ticker, **d} for d in history_data_json_list]
-    all_ticker_history_data_list=all_ticker_history_data_list+ticker_history_data_json_list
+    ticker_history_data_json_list = [
+        {"ticker": ticker, **d} for d in history_data_json_list
+    ]
+    all_ticker_history_data_list = (
+        all_ticker_history_data_list + ticker_history_data_json_list
+    )
 # print(all_ticker_history_data_list)
 
 
@@ -87,7 +88,7 @@ for stock_info in all_ticker_history_data_list:
     company_info = {
         "ticker": ticker,
         "name": yf.Ticker(ticker).info["longName"],
-        "exchange": yf.Ticker(ticker).info["exchange"]
+        "exchange": yf.Ticker(ticker).info["exchange"],
     }
     print(company_info)
     producer.produce(

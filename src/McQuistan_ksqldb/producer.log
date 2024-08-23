@@ -1,2 +1,0 @@
-2024-08-22 13:03:04 root         INFO     {'message': 'successfully produced message', 'topic': 'stocks', 'partition': 0, 'offset': 2256}
-2024-08-22 13:03:04 root         INFO     {'message': 'successfully produced message', 'topic': 'stocks', 'partition': 0, 'offset': 2257}
