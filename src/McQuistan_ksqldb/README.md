@@ -1,0 +1,1 @@
+https://thecodinginterface.com/blog/stock-stream-processing-with-kafka-and-ksqldb/

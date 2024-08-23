@@ -1,0 +1,18 @@
+{
+    "type": "record",
+    "name": "Company",
+    "fields": [
+        {
+            "name": "ticker",
+            "type": "string"
+        },
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "exchange",
+            "type": "string"
+        }
+    ]
+}

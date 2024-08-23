@@ -17,7 +17,7 @@ import time
 ## Get stock data
 ticker_symbol = "TSLA"
 stock = yf.Ticker(ticker_symbol)
-history_data = stock.history(period="1mo", interval="1d")
+history_data = stock.history(period="1y", interval="1d")
 history_data_json_string = history_data.to_json(orient="table")
 history_data_json_dict = json.loads(history_data_json_string)
 stock_data_section_json_dict=history_data_json_dict["data"]

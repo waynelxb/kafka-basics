@@ -3,21 +3,15 @@ from confluent_kafka.schema_registry import SchemaRegistryClient
 from confluent_kafka.schema_registry import Schema
 import requests
 
-def delete_schema_registry_subject(schema_registry_url, schema_registry_subject):
-    schema_registry_client = SchemaRegistryClient({'url': schema_registry_url})
-    subject_url = f"{schema_registry_url}/subjects/{schema_registry_subject}"
-    schema_registry_client.delete_subject(schema_registry_subject, permanent=True)
-    # response = requests.delete(subject_url)
-    # if response.status_code == 200:
-    #     print(f"Subject {schema_registry_subject} deleted successfully.")
-    # else:
-    #     print(f"Error deleting subject: {response.text}")
+def delete_schema_registry_subject(schema_registry_client, schema_registry_subject):
+    if schema_registry_subject in schema_registry_client.get_subjects(): 
+        schema_registry_client.delete_subject(schema_registry_subject, permanent=True)
+    else: 
+        print(f"{schema_registry_subject} does not exist")
 
 
-
-
-def register_schema(schema_registry_url, schema_registry_subject, schema_str, compatibility_level= "BACKWARD"):
-    schema_registry_client = SchemaRegistryClient({'url': schema_registry_url})
+def register_schema(schema_registry_client, schema_registry_subject, schema_str, compatibility_level= "BACKWARD"):
+    # schema_registry_client = SchemaRegistryClient({'url': schema_registry_url})
     schema_registry_client.set_compatibility(schema_registry_subject, compatibility_level)
     print(f"Compatibility level for {schema_registry_subject} set to {compatibility_level}")
     schema = Schema(schema_str, schema_type="AVRO")
@@ -25,19 +19,34 @@ def register_schema(schema_registry_url, schema_registry_subject, schema_str, co
     return schema_id
 
 
-def get_schema_from_schema_registry(schema_registry_url, schema_registry_subject, version_number = None):
-    schema_registry_client = SchemaRegistryClient({'url': schema_registry_url})
+
+
+# def get_schema_from_schema_registry(schema_registry_url, schema_registry_subject, version_number = None):
+#     schema_registry_client = SchemaRegistryClient({'url': schema_registry_url})
+#     if version_number == None: 
+#         schema = schema_registry_client.get_latest_version(schema_registry_subject).schema
+#     else: 
+#         schema = schema_registry_client.get_version(schema_registry_subject, version_number).schema
+#     return schema_registry_client, schema
+
+
+
+def get_schema_from_schema_registry(schema_registry_client, schema_registry_subject, version_number = None):
     if version_number == None: 
         schema = schema_registry_client.get_latest_version(schema_registry_subject).schema
     else: 
         schema = schema_registry_client.get_version(schema_registry_subject, version_number).schema
-    return schema_registry_client, schema
+    return schema
 
-def update_schema(schema_registry_url, schema_registry_subject, schema_str):
-    schema_registry_client = SchemaRegistryClient({'url': schema_registry_url})
+
+
+
+
+def update_schema(schema_registry_client, schema_registry_subject, schema_str):
+    # schema_registry_client = SchemaRegistryClient({'url': schema_registry_url})
     versions_deleted_list = schema_registry_client.delete_subject(schema_registry_subject)
     print(f"versions of schema deleted list: {versions_deleted_list}")
-    schema_id = register_schema(schema_registry_url, schema_registry_subject, schema_str)
+    schema_id = register_schema(schema_registry_client, schema_registry_subject, schema_str)
     return schema_id
 
 
