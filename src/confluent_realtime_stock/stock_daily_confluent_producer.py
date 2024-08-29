@@ -33,7 +33,7 @@ topic = "stock_daily"
 
 
 ## Set schema registry
-schema_registry_conf = {"url": "http://localhost:8091"}
+schema_registry_conf = {"url": "http://localhost:8081"}
 client = SchemaRegistryClient(schema_registry_conf)
 
 ## Be careful! json element should be quoted with DOUBLE QUOTES!!!

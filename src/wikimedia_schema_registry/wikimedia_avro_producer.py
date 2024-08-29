@@ -14,7 +14,7 @@ from wikimedia_stringified_schema import SCHEMA_STR
 init_string = "data: "
 source_url = "https://stream.wikimedia.org/v2/stream/recentchange"
 kafka_url = "localhost:9092"
-schema_registry_url = "http://localhost:8091"
+schema_registry_url = "http://localhost:8081"
 kafka_topic = "wikimedia"
 schema_registry_subject = f"{kafka_topic}-value"
 

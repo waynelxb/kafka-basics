@@ -6,7 +6,7 @@ from confluent_kafka.schema_registry.avro import AvroDeserializer
 import yfinance as yf
 
 ## Set schema registry
-schema_registry_conf = {"url": "http://localhost:8091"}
+schema_registry_conf = {"url": "http://localhost:8081"}
 schema_registry_client  = SchemaRegistryClient(schema_registry_conf)
 avro_deserializer = AvroDeserializer(schema_registry_client)
 

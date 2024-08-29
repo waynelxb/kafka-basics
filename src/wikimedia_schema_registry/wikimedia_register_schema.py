@@ -5,7 +5,7 @@ from confluent_kafka.schema_registry import Schema
 # imort from constants
 from wikimedia_stringified_schema import SCHEMA_STR
 
-schema_registry_url = 'http://localhost:8091'
+schema_registry_url = 'http://localhost:8081'
 kafka_topic = 'wikimedia'
 schema_registry_subject = f"{kafka_topic}-value"
 

@@ -7,7 +7,7 @@ from stk_sr_functions import register_schema
 from stk_sr_functions import delete_schema_registry_subject
 from stk_sr_functions import get_schema_from_schema_registry
 
-schema_registry_url = "http://localhost:8091"
+schema_registry_url = "http://localhost:8081"
 schema_registry_client = SchemaRegistryClient({"url": schema_registry_url})
 
 

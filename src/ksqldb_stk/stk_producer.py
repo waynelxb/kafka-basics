@@ -49,7 +49,7 @@ stock_topic = "stk_stock"
 company_topic = "stk_company"
 
 # Define the URL of your Schema Registry
-schema_registry_url = "http://localhost:8091"
+schema_registry_url = "http://localhost:8081"
 schema_registry_client = SchemaRegistryClient({"url": schema_registry_url})
 
 

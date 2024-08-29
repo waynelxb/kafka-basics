@@ -50,7 +50,7 @@ def update_schema(schema_registry_client, schema_registry_subject, schema_str):
     return schema_id
 
 
-# schema_registry_url = 'http://localhost:8091'
+# schema_registry_url = 'http://localhost:8081'
 # schema_registry_subject = f"user_schema"
 
 # with open("avro_schema/user.avsc", "r") as f:

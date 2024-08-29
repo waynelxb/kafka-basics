@@ -11,7 +11,7 @@ from confluent_kafka.serialization import StringSerializer
 
 kafka_broker_server_ip = "localhost"
 
-schema_registry_url = f"http://localhost:8091"  # Replace with your Schema Registry URL
+schema_registry_url = f"http://localhost:8081"  # Replace with your Schema Registry URL
 schema_registry_client = SchemaRegistryClient(schema_registry_url)
 
 value_schema_str = {

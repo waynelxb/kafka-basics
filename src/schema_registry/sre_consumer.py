@@ -4,7 +4,7 @@ from confluent_kafka.schema_registry.avro import AvroDeserializer
 from sre_function import get_schema_from_schema_registry
 
 
-schema_registry_url = "http://localhost:8091"
+schema_registry_url = "http://localhost:8081"
 schema_registry_client = SchemaRegistryClient({'url': schema_registry_url})
 # schema_registry_subject = "user_schema_BACKWARD"
 schema_registry_subject = "user_schema_FORWARD"

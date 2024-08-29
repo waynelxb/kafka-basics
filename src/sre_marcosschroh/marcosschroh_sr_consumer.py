@@ -3,7 +3,7 @@ from kafka import KafkaConsumer
 from schema_registry.client import SchemaRegistryClient
 
 # Create a Schema Registry client
-schema_registry_client = SchemaRegistryClient('http://localhost:8091')
+schema_registry_client = SchemaRegistryClient('http://localhost:8081')
 
 # Create a Kafka consumer
 consumer = KafkaConsumer('newtopic',
